@@ -6,17 +6,39 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.tailwindcss.com"></script>
   <title>Repaso JS</title>
 </head>
 
-<body>
-  <button id="titulo">
-    Repaso JS
-  </button>
+<body class="flex  h-full p-2  flex-col ">
+  <h1 class="text-3xl font-bold m-auto">
+    Poke tarjeta
+  </h1>
 
-  <p>
+  <a href="#" class="group block m-auto mt-3 bg-neutral-200 rounded-md">
+    <img
+      src="https://images.unsplash.com/photo-1592921870789-04563d55041c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+      alt=""
+      class="h-[350px] object-cover sm:h-[450px]"
+    />
+  
+    <div class="mt-3 flex justify-between text-sm">
+      <div>
+        <h3
+          class="text-gray-900 group-hover:underline group-hover:underline-offset-4"
+          id="nombre"
+        >
+          Small Headphones
+        </h3>
+  
+        <p  id="descripcion"class="mt-1.5 max-w-[45ch] text-xs text-gray-500">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi nobis,
+          quia soluta quisquam voluptatem nemo.
+        </p>
+      </div>
+    </div>
+  </a>
 
-  </p>
   <script src="main.js"></script>
 </body>
 
