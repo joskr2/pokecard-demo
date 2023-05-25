@@ -1,23 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
+  <title>Pokémon Cards</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <title>Repaso JS</title>
+  <link href="styles.css" rel="stylesheet">
 </head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen">
+  <header class="w-full p-4 bg-blue-500 text-white text-center">
+    <h1>Pokémon Cards</h1>
+  </header>
+  <main class="flex-1 p-4 overflow-auto">
+    <div id="cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+  </main>
+  <footer class="w-full p-4 bg-blue-500 text-white text-center">
+    <p>Created by CodiGo</p>
+  </footer>
 
-<body class="flex  h-full p-2  flex-col ">
-  <h1 class="text-3xl font-bold m-auto">
-    Poke tarjeta
-  </h1>
-
-  <div id="cards" class="grid grid-cols-1 md:grid-cols-6 p-4">
+  <!-- The Modal -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <img id="modal-image" class="w-full h-64 object-cover" alt="img">
+      <h3 class="text-lg leading-6 font-medium text-gray-900 p-4" id="modal-title"></h3>
+      <p class="px-4 text-sm text-gray-500" id="modal-description"></p>
+      <div class="bg-gray-50 px-4 py-3 flex justify-end">
+        <button id="close" type="button" class="btn">
+          Close
+        </button>
+      </div>
+    </div>
   </div>
+
   <script src="main.js"></script>
 </body>
-
 </html>

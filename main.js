@@ -1,68 +1,61 @@
-
-
-// const handleClick = () => {
-//   console.log( 'click' );
-
-// }
-
-
 let Card = ( { nombre, imagen, descripcion } ) => {
   return `
-  <a href="#" class="group block m-auto mt-3 bg-neutral-200 rounded-md m-2">
-  <img src=${imagen} alt="" class="h-[250px] object-cover sm:h-[300px]" />
-
-  <div class="mt-3 flex justify-between text-sm">
-    <div>
-      <h3 class="text-gray-900 group-hover:underline group-hover:underline-offset-4" id="nombre">
-       ${nombre}
-      </h3>
-      <p id="descripcion" class="mt-1.5 max-w-[45ch] text-xs text-gray-500">
-        ${descripcion}
-      </p>
-    </div>    
+  <div class="group m-1 cursor-pointer transform transition duration-500 ease-in-out hover:scale-105" onclick="showModal('${nombre}', '${imagen}', '${descripcion}')">
+    <div class="w-64 h-64 bg-white rounded-lg shadow-md m-auto">
+      <img src=${imagen} alt="" class="w-full h-2/3 rounded-t-lg" />
+      <div class="p-4">
+        <h3 class="text-gray-900 group-hover:underline group-hover:underline-offset-4 text-center">
+         ${nombre}
+        </h3>
+        <p class="mt-2 text-xs text-gray-500 text-center">
+          ${descripcion}
+        </p>
+      </div>
+    </div>
   </div>
-</a>
     `;
 }
 
-
-const URL_ALL_POKEMONS = 'https://pokeapi.co/api/v2/pokemon?limit=1500&offset=200';
+const URL_ALL_POKEMONS = 'https://pokeapi.co/api/v2/pokemon?limit=10';
 
 async function getPokemonData() {
   try {
     const response = await fetch(URL_ALL_POKEMONS);
-    console.log(response, "1");
 
     if (response.status !== 200) {
       throw new Error('Error al obtener los datos');
     }
 
     const data = await response.json();
-    console.log(data, "2");
-
     for (const pokemon of data.results) {
       const pokemonResponse = await fetch(pokemon.url);
-      console.log(pokemonResponse, "3");
 
       if (pokemonResponse.status !== 200) {
-        throw new Error('Error al obtener los datos');
+        throw new Error('Error al obtener los datos del pokémon');
       }
 
       const pokemonData = await pokemonResponse.json();
-      console.log(pokemonData, "4");
-
-      const card = Card({
+      let cardData = {
         nombre: pokemonData.name,
         imagen: pokemonData.sprites.front_default,
-        descripcion: pokemonData.abilities[0].ability.name
-      });
+        descripcion: pokemonData.types.map(typeInfo => typeInfo.type.name).join(", ")
+      };
 
-      document.querySelector('#cards').innerHTML += card;
+      document.getElementById('cards').innerHTML += Card(cardData);
     }
-
   } catch (error) {
-    console.error(error);
+    console.error('Error: ', error);
   }
 }
 
 getPokemonData();
+
+function showModal(name, image, description) {
+  document.getElementById('modal-image').src = image; // Agregar imagen al modal
+  document.getElementById('modal-title').textContent = name;
+  document.getElementById('modal-description').textContent = description;
+  document.getElementById('modal').classList.remove('hidden');
+  document.getElementById('close').addEventListener('click', function() {
+    document.getElementById('modal').classList.add('hidden');
+  });
+}
