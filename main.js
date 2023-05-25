@@ -9,6 +9,7 @@ const URL = 'https://pokeapi.co/api/v2/pokemon/1/';
 
 fetch(URL).then((response,reject) => {
     if(response.status == 200){
+        
         return response.json();
     }else{
         reject('Error al obtener los datos');
