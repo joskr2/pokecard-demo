@@ -1,4 +1,11 @@
 
+
+// const handleClick = () => {
+//   console.log( 'click' );
+
+// }
+
+
 let Card = ( { nombre, imagen, descripcion } ) => {
   return `
   <a href="#" class="group block m-auto mt-3 bg-neutral-200 rounded-md m-2">
@@ -21,33 +28,41 @@ let Card = ( { nombre, imagen, descripcion } ) => {
 
 const URL_ALL_POKEMONS = 'https://pokeapi.co/api/v2/pokemon?limit=1500&offset=200';
 
+async function getPokemonData() {
+  try {
+    const response = await fetch(URL_ALL_POKEMONS);
+    console.log(response, "1");
 
-fetch( URL_ALL_POKEMONS ).then( ( response, reject ) => {
-  if ( response.status == 200 ) {
-    console.log(response, "1")
-    return response.json();
-  } else {
-    reject( 'Error al obtener los datos' );
-  }
-} ).then( ( data ) => {
+    if (response.status !== 200) {
+      throw new Error('Error al obtener los datos');
+    }
 
-  console.log(data, "2")
-  data.results.map( pokemon => {
-    fetch( pokemon.url ).then( ( response, reject ) => {
-      console.log(response, "3")
-      if ( response.status == 200 ) {
-        return response.json();
-      } else {
-        reject( 'Error al obtener los datos' );
+    const data = await response.json();
+    console.log(data, "2");
+
+    for (const pokemon of data.results) {
+      const pokemonResponse = await fetch(pokemon.url);
+      console.log(pokemonResponse, "3");
+
+      if (pokemonResponse.status !== 200) {
+        throw new Error('Error al obtener los datos');
       }
-    } ).then( ( data ) => {
-      console.log(data, "4")
-      let card = Card( {
-        nombre: data.name,
-        imagen: data.sprites.front_default,
-        descripcion: data.abilities[ 0 ].ability.name
-      } );
-      document.querySelector( '#cards' ).innerHTML += card;
-    } )
-  } );
-} )
+
+      const pokemonData = await pokemonResponse.json();
+      console.log(pokemonData, "4");
+
+      const card = Card({
+        nombre: pokemonData.name,
+        imagen: pokemonData.sprites.front_default,
+        descripcion: pokemonData.abilities[0].ability.name
+      });
+
+      document.querySelector('#cards').innerHTML += card;
+    }
+
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+getPokemonData();
