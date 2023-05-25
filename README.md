@@ -1,6 +1,7 @@
 # Pokémon Cards
 
 Este proyecto muestra tarjetas de Pokémon utilizando la API de Pokémon y Tailwind CSS para el diseño. Cuando se hace clic en una tarjeta de Pokémon, se muestra un modal con más detalles sobre ese Pokémon.
+<img width="1679" alt="Screenshot 2023-05-25 at 17 22 40" src="https://github.com/joskr2/pokecard-demo/assets/22845673/e16f95d6-b5f5-4580-91d9-e8933deb5b85">
 
 ## Cómo ejecutar el proyecto
 
